@@ -78,7 +78,7 @@ public class RestaurantService {
                 return  r;
             }
         }
-        throw new RestaurantException("Inesperado: Restaurante não encontrado");
+        throw new RestaurantException("Inesperado:  Restaurante não encontrado");
     }
 
     public List<Vote> getVotes() {

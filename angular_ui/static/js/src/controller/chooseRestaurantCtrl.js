@@ -5,7 +5,7 @@ module.exports = ['restaurantService',
     this.restaurants = [];
     this.restaurant = 1;
 
-    console.log("controller1 3a3266");
+    console.log("controller1 3 a3266");
 
     var updateRestaurants = function (scope){
         return function(value) { scope.restaurants = value};
