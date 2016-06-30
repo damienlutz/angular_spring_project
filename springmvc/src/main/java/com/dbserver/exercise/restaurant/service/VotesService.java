@@ -1,10 +1,8 @@
 package com.dbserver.exercise.restaurant.service;
 
-import com.dbserver.exercise.restaurant.RestaurantException;
+import com.dbserver.exercise.restaurant.exception.RestaurantException;
 import com.dbserver.exercise.restaurant.model.Restaurant;
-import com.dbserver.exercise.restaurant.model.Vote;
 import com.dbserver.exercise.restaurant.model.VoteSum;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;

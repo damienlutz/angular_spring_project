@@ -1,27 +1,29 @@
 package com.dbserver.exercise.restaurant.service;
 
 
-import com.dbserver.exercise.restaurant.RestaurantException;
+import com.dbserver.exercise.restaurant.exception.RestaurantException;
 import com.dbserver.exercise.restaurant.model.Restaurant;
 import com.dbserver.exercise.restaurant.model.Vote;
-import com.dbserver.exercise.restaurant.model.VoteSum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Component
 public class RestaurantService {
     public static final String RESTAURANTE_JA_VOTADO_OU_INEXISTENTE = "Restaurante já votado, já escolhido na semana ou inexistente";
-    private List<Long> weekChoosenRestaurants;
+
     private ArrayList<Restaurant> restaurants;
     private List<Vote> votes;
 
     private VotesService votesService;
 
+    @Autowired
+    private WeekChoosenService weekChoosenService;
+
     public RestaurantService(){
-        weekChoosenRestaurants = new ArrayList<Long>();
         votes = new ArrayList<Vote>();
 
         restaurants = new ArrayList<Restaurant>();
@@ -35,16 +37,16 @@ public class RestaurantService {
     public ArrayList<Restaurant> getRestaurants() {
         return restaurants;
     }
-    public void voteRestaurant(Long restaurantId, Long userId){
+    public void voteRestaurant(Long restaurantId, Long userId, Calendar week){
         Vote vote = new Vote(restaurantId, userId);
-        validateVote(vote);
+        validateVote(vote, week);
         votes.add(vote);
         votesService.vote(restaurantId);
     }
 
-    private void validateVote(Vote vote) {
+    private void validateVote(Vote vote, Calendar week) {
         if(!isValidId(vote.getRestaurantId()) ||
-                isAlreadyWeekChoosen(vote.getRestaurantId()) ||
+                weekChoosenService.isAlreadyWeekChoosen(vote.getRestaurantId(), week) ||
                 isAlreadyDayVotedByUser(vote.getUserId())){
             throw new RestaurantException(RESTAURANTE_JA_VOTADO_OU_INEXISTENTE);
         }
@@ -69,10 +71,6 @@ public class RestaurantService {
         return false;
     }
 
-    private Boolean isAlreadyWeekChoosen(Long restaurantId) {
-        return weekChoosenRestaurants.contains(restaurantId);
-    }
-
 
     private Restaurant findRestaurantById(Long restaurantId) {
         for(Restaurant r : restaurants){
@@ -89,5 +87,9 @@ public class RestaurantService {
 
     public VotesService getVotesService() {
         return votesService;
+    }
+
+    public void setWeekChoosenService(WeekChoosenService weekChoosenService) {
+        this.weekChoosenService = weekChoosenService;
     }
 }
