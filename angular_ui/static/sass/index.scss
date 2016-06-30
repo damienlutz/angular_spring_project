@@ -1,0 +1,19 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+
+.page {
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px;
+  color: #333;
+}
+
+.container {
+  @extend .page;
+  border-color: green;
+}
