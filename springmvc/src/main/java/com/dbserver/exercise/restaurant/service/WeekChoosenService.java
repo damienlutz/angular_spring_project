@@ -29,7 +29,7 @@ public class WeekChoosenService {
         return findWeek(calendar).getWeekChoosenRestaurants().contains(restaurantId);
     }
 
-    public void chooseWeek(Calendar week, Long idRestaurant){
+    public void chooseRestaurant(Calendar week, Long idRestaurant){
         findWeek(week).addChoosenRestaurant(idRestaurant);
     }
 

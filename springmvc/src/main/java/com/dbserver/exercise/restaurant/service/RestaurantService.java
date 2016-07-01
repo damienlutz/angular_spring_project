@@ -6,7 +6,6 @@ import com.dbserver.exercise.restaurant.model.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class RestaurantService {
     @Autowired
     private WeekRestaurantsService weekRestaurantsService;
 
-    public ArrayList<Restaurant> getRestaurants(Calendar week) {
+    public List<Restaurant> getRestaurants(Calendar week) {
         return weekRestaurantsService.getWeekRestaurants(week);
     }
     public void voteRestaurant(Long restaurantId, Long userId, Calendar week){
