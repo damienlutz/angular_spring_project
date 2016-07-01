@@ -3,7 +3,6 @@ package com.dbserver.exercise.restaurant.service;
 
 import com.dbserver.exercise.restaurant.exception.RestaurantException;
 import com.dbserver.exercise.restaurant.model.Restaurant;
-import com.dbserver.exercise.restaurant.model.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,81 +14,56 @@ import java.util.List;
 public class RestaurantService {
     public static final String RESTAURANTE_JA_VOTADO_OU_INEXISTENTE = "Restaurante já votado, já escolhido na semana ou inexistente";
 
-    private ArrayList<Restaurant> restaurants;
-    private List<Vote> votes;
 
-    private VotesService votesService;
+    private VotesSumService votesSumService;
+    @Autowired
+    private WeekVotedUsersService weekVotedUsersService;
 
     @Autowired
     private WeekChoosenService weekChoosenService;
 
-    public RestaurantService(){
-        votes = new ArrayList<Vote>();
+    @Autowired
+    private WeekRestaurantsService weekRestaurantsService;
 
-        restaurants = new ArrayList<Restaurant>();
-        restaurants.add(new Restaurant(1L,"Apple Bees"));
-        restaurants.add(new Restaurant(2L,"OutBack"));
-        restaurants.add(new Restaurant(3L,"Pampa Burguer"));
-
-        votesService = new VotesService(restaurants);
-    }
-
-    public ArrayList<Restaurant> getRestaurants() {
-        return restaurants;
+    public ArrayList<Restaurant> getRestaurants(Calendar week) {
+        return weekRestaurantsService.getWeekRestaurants(week);
     }
     public void voteRestaurant(Long restaurantId, Long userId, Calendar week){
-        Vote vote = new Vote(restaurantId, userId);
-        validateVote(vote, week);
-        votes.add(vote);
-        votesService.vote(restaurantId);
+
+        validateVote(userId, restaurantId, week);
+        weekVotedUsersService.registerUserVote(userId, week);
+        getVotesSumService(week).vote(restaurantId);
     }
 
-    private void validateVote(Vote vote, Calendar week) {
-        if(!isValidId(vote.getRestaurantId()) ||
-                weekChoosenService.isAlreadyWeekChoosen(vote.getRestaurantId(), week) ||
-                isAlreadyDayVotedByUser(vote.getUserId())){
+    private void validateVote(Long vote, Long restaurantId, Calendar week) {
+        if(!weekRestaurantsService.isValidId(restaurantId, week) ||
+                weekChoosenService.isAlreadyWeekChoosen(restaurantId, week) ||
+                weekVotedUsersService.isAlreadyDayVotedByUser(vote, week)){
             throw new RestaurantException(RESTAURANTE_JA_VOTADO_OU_INEXISTENTE);
         }
     }
 
-    private Boolean isAlreadyDayVotedByUser(Long userId) {
 
-        for(Vote v : votes){
-            if(v.getUserId().equals(userId)){
-                return true;
-            }
+    public List<Long> getWeekVotedUsers(Calendar week) {
+        return weekVotedUsersService.getWeekVotedUsers(week);
+    }
+
+    public VotesSumService getVotesSumService(Calendar week) {
+        if(votesSumService == null){
+            votesSumService = new VotesSumService(weekRestaurantsService.getWeekRestaurants(week));
         }
-        return false;
-    }
-
-    private Boolean isValidId(Long restaurantId) {
-        for(Restaurant restaurant : restaurants){
-            if(restaurantId.equals(restaurant.getId())){
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    private Restaurant findRestaurantById(Long restaurantId) {
-        for(Restaurant r : restaurants){
-            if(restaurantId.equals(r.getId())){
-                return  r;
-            }
-        }
-        throw new RestaurantException("Inesperado:  Restaurante não encontrado");
-    }
-
-    public List<Vote> getVotes() {
-        return votes;
-    }
-
-    public VotesService getVotesService() {
-        return votesService;
+        return votesSumService;
     }
 
     public void setWeekChoosenService(WeekChoosenService weekChoosenService) {
         this.weekChoosenService = weekChoosenService;
+    }
+
+    public void setWeekVotedUsersService(WeekVotedUsersService weekVotedUsersService) {
+        this.weekVotedUsersService = weekVotedUsersService;
+    }
+
+    public void setWeekRestaurantsService(WeekRestaurantsService weekRestaurantsService) {
+        this.weekRestaurantsService = weekRestaurantsService;
     }
 }

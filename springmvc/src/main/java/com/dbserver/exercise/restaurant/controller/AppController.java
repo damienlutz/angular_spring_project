@@ -30,7 +30,7 @@ public class AppController {
     @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/restaurants", method = RequestMethod.POST)
     public List<Restaurant> restaurants() {
-        return restaurantService.getRestaurants();
+        return restaurantService.getRestaurants(Calendar.getInstance());
     }
 
     @CrossOrigin(origins = "http://localhost:8081")

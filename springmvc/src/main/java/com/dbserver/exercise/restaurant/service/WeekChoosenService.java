@@ -1,6 +1,7 @@
 package com.dbserver.exercise.restaurant.service;
 
 import com.dbserver.exercise.restaurant.model.WeekChoosen;
+import com.dbserver.exercise.restaurant.util.WeekUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,8 +26,11 @@ public class WeekChoosenService {
     }
 
     public Boolean isAlreadyWeekChoosen(Long restaurantId, Calendar calendar) {
-        List<Long> weekChoosenRestaurants = findWeek(calendar).getWeekChoosenRestaurants();
-        return weekChoosenRestaurants.contains(restaurantId);
+        return findWeek(calendar).getWeekChoosenRestaurants().contains(restaurantId);
+    }
+
+    public void chooseWeek(Calendar week, Long idRestaurant){
+        findWeek(week).addChoosenRestaurant(idRestaurant);
     }
 
     private WeekChoosen findWeek(Calendar calendar) {
@@ -42,12 +46,12 @@ public class WeekChoosenService {
 
     private Optional<WeekChoosen> findExistingWeek(Calendar calendar) {
         for(WeekChoosen week:weekChoosens) {
-            if (calendar.get(calendar.YEAR) == week.getWeek().get(calendar.YEAR) &&
-                    calendar.get(calendar.WEEK_OF_YEAR) == week.getWeek().get(calendar.WEEK_OF_YEAR)){
+            if (WeekUtil.isEqualWeek(calendar, week.getWeek())){
                 return Optional.of(week);
             }
         }
         return Optional.empty();
     }
+
 
 }

@@ -27,7 +27,7 @@ public class RestaurantServiceTest {
 
         restaurantService.voteRestaurant(1L, 0L, week);
 
-        Assert.assertTrue(new Long(1L).equals(restaurantService.getVotesService().getChoosenRestaurantId()));
+        Assert.assertTrue(new Long(1L).equals(restaurantService.getVotesSumService(week).getChoosenRestaurantId()));
     }
     @Test
     public void testVoteRestaurantDifferentRestaurantSameUser() {
@@ -49,12 +49,14 @@ public class RestaurantServiceTest {
         restaurantService.voteRestaurant(1L, 0L, week);
         restaurantService.voteRestaurant(1L, 1L, week);
 
-        Assert.assertTrue(new Long(1L).equals(restaurantService.getVotesService().getChoosenRestaurantId()));
+        Assert.assertTrue(new Long(1L).equals(restaurantService.getVotesSumService(week).getChoosenRestaurantId()));
     }
 
     private RestaurantService getRestaurantService() {
         RestaurantService restaurantService = new RestaurantService();
         restaurantService.setWeekChoosenService(new WeekChoosenService());
+        restaurantService.setWeekVotedUsersService(new WeekVotedUsersService());
+        restaurantService.setWeekRestaurantsService(new WeekRestaurantsService());
         return restaurantService;
     }
 
@@ -67,7 +69,7 @@ public class RestaurantServiceTest {
         restaurantService.voteRestaurant(2L, 2L, week);
         restaurantService.voteRestaurant(2L, 3L, week);
 
-        Assert.assertTrue(new Long(2L).equals(restaurantService.getVotesService().getChoosenRestaurantId()));
+        Assert.assertTrue(new Long(2L).equals(restaurantService.getVotesSumService(week).getChoosenRestaurantId()));
     }
 
 }

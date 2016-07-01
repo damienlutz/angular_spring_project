@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class VotesService {
+public class VotesSumService {
 
 
     private List<VoteSum> voteSum;
 
-    public VotesService(List<Restaurant> restaurants) {
+    public VotesSumService(List<Restaurant> restaurants) {
         voteSum = new ArrayList<VoteSum>();
         for(Restaurant r : restaurants){
             voteSum.add(new VoteSum(r.getId(),0));

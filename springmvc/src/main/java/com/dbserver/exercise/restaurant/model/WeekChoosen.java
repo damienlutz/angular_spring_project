@@ -27,4 +27,8 @@ public class WeekChoosen {
     public void setWeek(Calendar week) {
         this.week = week;
     }
+
+    public void addChoosenRestaurant(Long idRestaurant) {
+        weekChoosenRestaurants.add(idRestaurant);
+    }
 }
