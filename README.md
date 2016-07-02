@@ -13,13 +13,17 @@ Portas reservadas: 8080(back-end), 8081(front-end), 9091(liveserver)
 
 # Boas práticas:
 Clean Code, TDD
+
 Angular(Promises/Future, Services, Named-Controllers)
+
 Java 8(Optional)
+
 Spring(Dependency Injection)
+
 Arquitetura de microserviço com front-end separado do back-end (CORS com origem definida)
 
 # Tecnologias:
-Angular 1.5.7, Angular Material, Java 8, Spring Framework/ Spring MVC 4.2.6, SpringBoot 1.3.5, npm, Sass, 
+Angular 1.5.7, Angular Material, Java 8, Spring Framework/ Spring MVC 4.2.6, SpringBoot 1.3.5, npm, Sass
 
 
 # Configuração ambiente de desenvolvimento:
