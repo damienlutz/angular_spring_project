@@ -28,7 +28,7 @@ public class VotesSumService {
     public Long getChoosenRestaurantId() {
 
         Optional<Long> maxId = Optional.empty();
-        Integer maxVotes = -1;
+        Integer maxVotes = 0;
         for (VoteSum v : voteSum){
             if(maxVotes < v.getTotal()){
                 maxVotes = v.getTotal();
@@ -36,7 +36,7 @@ public class VotesSumService {
             }
         }
         if(!maxId.isPresent()){
-            throw  new RestaurantException("Inesperado: Não foi encontrado restaurante escolhido");
+            throw  new RestaurantException("Não foi encontrado restaurante mais votado.");
         }
         return maxId.get();
     }

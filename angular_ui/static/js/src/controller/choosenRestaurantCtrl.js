@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['restaurantService','testCaseService',
-                    function(restaurantService, testCaseService) {
+module.exports = ['restaurantService','testCaseService','$mdToast',
+                    function(restaurantService, testCaseService, $mdToast) {
 
     this.restaurant = {};
 
@@ -9,9 +9,17 @@ module.exports = ['restaurantService','testCaseService',
         return function(value) { scope.restaurant = value};
     }(this);
 
-    restaurantService.getChoosenRestaurant(testCaseService.getWeek()).then(function(value) {
-        console.log('Success: ' + JSON.stringify(value));
-        updateRestaurants(value);
+    restaurantService.getChoosenRestaurant(testCaseService.getWeek()).then(function(choosenResponse) {
+        console.log('Success: ' + JSON.stringify(choosenResponse));
+
+        if(!choosenResponse.valid){
+            $mdToast.show(
+                  $mdToast.simple()
+                    .textContent(choosenResponse.reason)
+                    .hideDelay(3000)
+                );
+        }
+        updateRestaurants(choosenResponse.restaurant);
     });
 
 }]

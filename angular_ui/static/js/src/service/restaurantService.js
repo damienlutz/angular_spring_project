@@ -33,6 +33,7 @@ module.exports = ['$http', function($http) {
     this.getChoosenRestaurant = function(week) {
         var data = {'week':week };
         return getChoosenRestaurant(data).then(function(response) {
+            console.log('getChoosenRestaurant ok: ' + JSON.stringify(response.data));
             return response.data;
         }, function(reason) {
             console.log('Failed getChoosenRestaurant: ' + JSON.stringify(reason));

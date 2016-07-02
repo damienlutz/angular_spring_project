@@ -1,10 +1,7 @@
 package com.dbserver.exercise.restaurant.controller;
 
 import com.dbserver.exercise.restaurant.exception.RestaurantException;
-import com.dbserver.exercise.restaurant.model.AdminInput;
-import com.dbserver.exercise.restaurant.model.Restaurant;
-import com.dbserver.exercise.restaurant.model.VoteInput;
-import com.dbserver.exercise.restaurant.model.VoteResponse;
+import com.dbserver.exercise.restaurant.model.*;
 import com.dbserver.exercise.restaurant.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,8 +46,15 @@ public class AppController {
 
     @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/getChoosenRestaurant", method = RequestMethod.POST)
-    public Restaurant getChoosenRestaurant(@RequestBody AdminInput admin) {
-        return restaurantService.getChoosenRestaurant(getWeek(admin.getWeek()));
+    public ChoosenResponse getChoosenRestaurant(@RequestBody AdminInput admin) {
+        Restaurant choosenRestaurant;
+        try{
+            choosenRestaurant = restaurantService.getChoosenRestaurant(getWeek(admin.getWeek()));
+        }catch(RestaurantException e){
+            System.out.println(e + ",\n"+ e.getMessage());
+            return new ChoosenResponse(false, null, e.getMessage());
+        }
+        return new ChoosenResponse(true, choosenRestaurant, "");
     }
 
     @CrossOrigin(origins = "http://localhost:8081")

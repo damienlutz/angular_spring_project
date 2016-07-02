@@ -67,7 +67,7 @@ public class RestaurantService {
     }
 
     public Restaurant getChoosenRestaurant(Calendar week) {
-        return weekRestaurantsService.findRestaurant(week, votesSumService.getChoosenRestaurantId());
+        return weekRestaurantsService.findRestaurant(week, getVotesSumService(week).getChoosenRestaurantId());
     }
 
     public void reset() {
