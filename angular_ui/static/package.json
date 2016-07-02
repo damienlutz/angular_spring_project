@@ -5,16 +5,13 @@
   "main": "index.js",
   "scripts": {
     "jshintb": "jshint js/src/*.js",
-
     "watch-sass-concat": "catw sass/*.scss -o sass_bundle/bundle.scss",
     "watch-sass-bundle": "node-sass -wr 'sass_bundle/bundle.scss' -o css",
     "watch-sass": "npm run watch-sass-concat & npm run watch-sass-bundle",
-
     "build-js": "browserify js/src/index.js > js/bundle.js",
     "watch-js": "watchify js/src/index.js -o js/bundle.js -dv",
     "build": "parallelshell 'npm run build-sass' 'npm run build-js'",
     "watch": "npm run watch-sass & npm run watch-js",
-
     "livereload": "live-reload --port 9091 ."
   },
   "author": "",
@@ -22,14 +19,14 @@
   "dependencies": {
     "angular": "^1.5.7",
     "angular-material": "http://github.com/angular/bower-material/tarball/v1.1.0-rc2",
-    "angular-messages": "^1.5.7"
+    "angular-messages": "^1.5.7",
+    "angular-route": "^1.5.7"
   },
   "devDependencies": {
     "jshint": "latest",
     "browserify": "^13.0.1",
     "watchify": "^3.7.0",
     "live-reload": "latest",
-
     "node-sass": "latest",
     "catw": "latest",
     "parallelshell": "^1.2.0"

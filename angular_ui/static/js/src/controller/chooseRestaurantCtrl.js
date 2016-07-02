@@ -1,11 +1,9 @@
 'use strict';
 
-module.exports = ['restaurantService',
-                    function(restaurantService) {
+module.exports = ['restaurantService','testCaseService',
+                    function(restaurantService,testCaseService) {
     this.restaurants = [];
     this.restaurant = 1;
-
-    console.log("controller1 3  a3266");
 
     var updateRestaurants = function (scope){
         return function(value) { scope.restaurants = value};
@@ -23,14 +21,18 @@ module.exports = ['restaurantService',
         }
         console.log('submit');
 
-        restaurantService.voteRestaurant(this.restaurant).then(function(vote) {
-            console.log('Success: ' + JSON.stringify(vote));
 
-            if(vote.valid){
-                console.log('valid vote');
-            }else{
-                console.log('invalid vote'+ vote.reason);
-            }
+        restaurantService.voteRestaurant(this.restaurant,
+                                            testCaseService.getUserId(),
+                                            testCaseService.getWeek()).
+            then(function(vote) {
+                console.log('Success: ' + JSON.stringify(vote));
+
+                if(vote.valid){
+                    console.log('valid vote');
+                }else{
+                    console.log('invalid vote'+ vote.reason);
+                }
         });
     };
 }]

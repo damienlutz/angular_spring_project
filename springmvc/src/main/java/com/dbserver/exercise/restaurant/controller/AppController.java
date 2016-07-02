@@ -37,12 +37,25 @@ public class AppController {
     @RequestMapping(value = "/voteRestaurant", method = RequestMethod.POST)
     public VoteResponse voteRestaurant(@RequestBody VoteInput id) {
         try{
-            restaurantService.voteRestaurant(Long.valueOf(id.getRestaurantId()), Long.valueOf(id.getUserId()), Calendar.getInstance());
+            Calendar week = getWeek(id.getWeek());
+            restaurantService.voteRestaurant(Long.valueOf(id.getRestaurantId()), Long.valueOf(id.getUserId()), week);
         }catch (RestaurantException e){
             System.out.println(e + ",\n"+ e.getMessage());
             return new VoteResponse(false, e.getMessage());
         }
         return new VoteResponse(true, "");
+    }
+
+    public Calendar getWeek(String id) {
+        Calendar week = Calendar.getInstance();
+        Integer weekNumber = Integer.valueOf(id);
+        week = sumWeeks(week, weekNumber);
+        return week;
+    }
+
+    public Calendar sumWeeks(Calendar week, Integer weekNumber) {
+        week.add(Calendar.DATE, 7 * weekNumber);
+        return week;
     }
 
 }

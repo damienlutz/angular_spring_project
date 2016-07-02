@@ -1,0 +1,16 @@
+
+<div class="container">
+    <h1>Restaurante do dia</h1>
+    <div>
+        <form name="chooseRestaurant.form" ng-cloak>
+            <p>Voto no restaurante</p>
+            <md-radio-group ng-model="chooseRestaurant.restaurant" class="md-primary">
+                <md-radio-button ng-repeat="option in chooseRestaurant.restaurants"
+                                 ng-value="option.id" >
+                    {{ option.name }}<br/>
+                </md-radio-button>
+            </md-radio-group>
+            <md-button class="md-raised md-primary" ng-click='chooseRestaurant.submit()' ng-href="#testCase">Votar</md-button>
+        </form>
+    </div>
+</div>
