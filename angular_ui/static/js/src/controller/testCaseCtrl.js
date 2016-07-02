@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['testCaseService',function(testCaseService) {
+module.exports = ['testCaseService','navigationService',function(testCaseService, navigationService) {
     this.user = 2;
     this.week = 2;
 
@@ -8,6 +8,10 @@ module.exports = ['testCaseService',function(testCaseService) {
     this.submit = function (e){
         testCaseService.setUserId(this.user);
         testCaseService.setWeek(this.week);
-        console.log('submit test case');
+        console.log('submited the test case');
     };
+
+    this.nextPage = function(){
+        return navigationService.getCasePage(this.user);
+    }
 }]

@@ -1,13 +1,9 @@
 'use strict';
 
-module.exports = ['$location',function($location) {
+module.exports = ['$location','navigationService',function($location, navigationService) {
 
-    var back = {
-        '/voteRestaurant':'#testCase',
-        '/testCase':'#/'
-    }
     this.goBack = function (){
-        return back[$location.path()];
+        return navigationService.previousPage($location.path());
     };
     this.visible = function(){
         return $location.path() != "/";

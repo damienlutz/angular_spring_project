@@ -15,8 +15,14 @@ module.exports = function($routeProvider) {
             controller  : 'testCaseCtrl as testCase'
         })
 
+        // route for the about page
+        .when('/choosenRestaurant', {
+            templateUrl : 'pages/choosenRestaurant.html',
+            controller  : 'choosenRestaurantCtrl as choosenRestaurant'
+        })
+
         // route for the contact page
-        .when('/voteRestaurant', {
+        .when('/chooseRestaurant', {
             templateUrl : 'pages/chooseRestaurant.html',
             controller  : 'chooseRestaurantCtrl as chooseRestaurant'
         });

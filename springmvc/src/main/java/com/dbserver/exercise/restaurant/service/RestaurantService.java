@@ -65,4 +65,8 @@ public class RestaurantService {
     public void setWeekRestaurantsService(WeekRestaurantsService weekRestaurantsService) {
         this.weekRestaurantsService = weekRestaurantsService;
     }
+
+    public Restaurant getChoosenRestaurant(Calendar week) {
+        return weekRestaurantsService.findRestaurant(week, votesSumService.getChoosenRestaurantId());
+    }
 }

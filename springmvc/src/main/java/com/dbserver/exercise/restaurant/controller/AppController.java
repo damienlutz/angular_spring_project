@@ -1,6 +1,7 @@
 package com.dbserver.exercise.restaurant.controller;
 
 import com.dbserver.exercise.restaurant.exception.RestaurantException;
+import com.dbserver.exercise.restaurant.model.AdminInput;
 import com.dbserver.exercise.restaurant.model.Restaurant;
 import com.dbserver.exercise.restaurant.model.VoteInput;
 import com.dbserver.exercise.restaurant.model.VoteResponse;
@@ -37,13 +38,18 @@ public class AppController {
     @RequestMapping(value = "/voteRestaurant", method = RequestMethod.POST)
     public VoteResponse voteRestaurant(@RequestBody VoteInput id) {
         try{
-            Calendar week = getWeek(id.getWeek());
-            restaurantService.voteRestaurant(Long.valueOf(id.getRestaurantId()), Long.valueOf(id.getUserId()), week);
+            restaurantService.voteRestaurant(Long.valueOf(id.getRestaurantId()), Long.valueOf(id.getUserId()), getWeek(id.getWeek()));
         }catch (RestaurantException e){
             System.out.println(e + ",\n"+ e.getMessage());
             return new VoteResponse(false, e.getMessage());
         }
         return new VoteResponse(true, "");
+    }
+
+    @CrossOrigin(origins = "http://localhost:8081")
+    @RequestMapping(value = "/getChoosenRestaurant", method = RequestMethod.POST)
+    public Restaurant getChoosenRestaurant(@RequestBody AdminInput admin) {
+        return restaurantService.getChoosenRestaurant(getWeek(admin.getWeek()));
     }
 
     public Calendar getWeek(String id) {

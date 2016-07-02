@@ -3,9 +3,7 @@
 module.exports = ['$http', function($http) {
 
     this.getRestaurants = function() {
-            console.log('getRestau');
         return getRestaurants().then(function(response) {
-            console.log('getRestau 2');
             return response.data;
         }, function(reason) {
             console.log('Failed getRestaurants: ' + JSON.stringify(reason));
@@ -30,6 +28,19 @@ module.exports = ['$http', function($http) {
 
     function voteRestaurant(data){
         return $http.post("http://localhost:8080/voteRestaurant", data);
+    }
+
+    this.getChoosenRestaurant = function(week) {
+        var data = {'week':week };
+        return getChoosenRestaurant(data).then(function(response) {
+            return response.data;
+        }, function(reason) {
+            console.log('Failed getChoosenRestaurant: ' + JSON.stringify(reason));
+        });
+    }
+
+    function getChoosenRestaurant(data){
+        return $http.post("http://localhost:8080/getChoosenRestaurant", data);
     }
 
 }]

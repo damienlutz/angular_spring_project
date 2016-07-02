@@ -1,5 +1,6 @@
 package com.dbserver.exercise.restaurant.service;
 
+import com.dbserver.exercise.restaurant.exception.RestaurantException;
 import com.dbserver.exercise.restaurant.model.Restaurant;
 import com.dbserver.exercise.restaurant.model.WeekRestaurant;
 import com.dbserver.exercise.restaurant.util.WeekUtil;
@@ -59,5 +60,14 @@ public class WeekRestaurantsService {
 
     public List<Restaurant> getWeekRestaurants(Calendar week) {
         return findWeek(week).getRestaurants();
+    }
+
+    public Restaurant findRestaurant(Calendar week, Long choosenRestaurantId) {
+        for(Restaurant r : findWeek(week).getRestaurants()){
+            if(choosenRestaurantId.equals(r.getId())){
+                return r;
+            }
+        }
+        throw  new RestaurantException("Inesperado: Restaurante não encontrado na semana.");
     }
 }

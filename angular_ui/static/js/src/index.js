@@ -12,8 +12,10 @@ app.config(require('./routes'));
 
 app.controller('appCtrl', require('./controller/appCtrl'));
 app.controller('chooseRestaurantCtrl', require('./controller/chooseRestaurantCtrl'));
+app.controller('choosenRestaurantCtrl', require('./controller/choosenRestaurantCtrl'));
 app.controller('testCaseCtrl', require('./controller/testCaseCtrl'));
 app.controller('startSessionCtrl', require('./controller/startSessionCtrl'));
 
-app.service('restaurantService', require('./service/restaurantService'))
-app.service('testCaseService', require('./service/testCaseService'))
+app.service('restaurantService', require('./service/restaurantService'));
+app.service('testCaseService', require('./service/testCaseService'));
+app.service('navigationService', require('./service/navigationService'));
