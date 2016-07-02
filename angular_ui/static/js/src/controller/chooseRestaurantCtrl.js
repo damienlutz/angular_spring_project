@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['restaurantService','testCaseService',
-                    function(restaurantService,testCaseService) {
+module.exports = ['restaurantService','testCaseService','$mdToast',
+                    function(restaurantService,testCaseService, $mdToast) {
     this.restaurants = [];
     this.restaurant = 1;
 
@@ -29,9 +29,17 @@ module.exports = ['restaurantService','testCaseService',
                 console.log('Success: ' + JSON.stringify(vote));
 
                 if(vote.valid){
-                    console.log('valid vote');
+                    $mdToast.show(
+                          $mdToast.simple()
+                            .textContent('Voto registrado!')
+                            .hideDelay(3000)
+                        );
                 }else{
-                    console.log('invalid vote'+ vote.reason);
+                    $mdToast.show(
+                          $mdToast.simple()
+                            .textContent(vote.reason)
+                            .hideDelay(3000)
+                        );
                 }
         });
     };

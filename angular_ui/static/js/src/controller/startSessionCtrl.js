@@ -1,10 +1,13 @@
 'use strict';
 
-module.exports = [function() {
+module.exports = ['restaurantService',function(restaurantService) {
 
 
     this.submit = function (e){
 
-        console.log('submit');
+        restaurantService.reset().then(function(value) {
+            console.log('Success: ' + JSON.stringify(value));
+        });
+        console.log('reset');
     };
 }]

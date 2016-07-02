@@ -16,6 +16,10 @@ public class WeekChoosenService {
 
     private List<WeekChoosen> weekChoosens;
     public WeekChoosenService() {
+        reset();
+    }
+
+    public void reset() {
         weekChoosens = new ArrayList<WeekChoosen>();
     }
 

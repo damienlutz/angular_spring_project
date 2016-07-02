@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = [function() {
+module.exports = ['$location',function($location) {
 
     var urls = {
         chooseRestaurant:'#chooseRestaurant',
@@ -11,6 +11,7 @@ module.exports = [function() {
 
     var back = {
         '/chooseRestaurant':urls.testCase,
+        '/choosenRestaurant':urls.testCase,
         '/testCase':urls.root
     }
     this.previousPage = function (){

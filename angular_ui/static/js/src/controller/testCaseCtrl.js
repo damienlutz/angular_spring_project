@@ -2,7 +2,7 @@
 
 module.exports = ['testCaseService','navigationService',function(testCaseService, navigationService) {
     this.user = 2;
-    this.week = 2;
+    this.week = 1;
 
 
     this.submit = function (e){

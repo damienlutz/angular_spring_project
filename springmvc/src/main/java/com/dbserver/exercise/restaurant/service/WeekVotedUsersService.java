@@ -13,6 +13,10 @@ import java.util.Optional;
 public class WeekVotedUsersService {
     private List<WeekVotedUser> weekVotedUsers;
     public WeekVotedUsersService(){
+        reset();
+    }
+
+    public void reset() {
         weekVotedUsers = new ArrayList<WeekVotedUser>();
     }
 

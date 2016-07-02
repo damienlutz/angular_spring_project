@@ -7,6 +7,7 @@ import com.dbserver.exercise.restaurant.model.VoteInput;
 import com.dbserver.exercise.restaurant.model.VoteResponse;
 import com.dbserver.exercise.restaurant.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
@@ -51,6 +52,14 @@ public class AppController {
     public Restaurant getChoosenRestaurant(@RequestBody AdminInput admin) {
         return restaurantService.getChoosenRestaurant(getWeek(admin.getWeek()));
     }
+
+    @CrossOrigin(origins = "http://localhost:8081")
+    @RequestMapping(value = "/reset", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void reset() {
+        restaurantService.reset();
+    }
+
 
     public Calendar getWeek(String id) {
         Calendar week = Calendar.getInstance();

@@ -3,6 +3,7 @@ package com.dbserver.exercise.restaurant.service;
 import com.dbserver.exercise.restaurant.exception.RestaurantException;
 import com.dbserver.exercise.restaurant.model.Restaurant;
 import com.dbserver.exercise.restaurant.model.VoteSum;
+import com.dbserver.exercise.restaurant.model.WeekRestaurant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,10 @@ public class VotesSumService {
     private List<VoteSum> voteSum;
 
     public VotesSumService(List<Restaurant> restaurants) {
+        reset(restaurants);
+    }
+
+    public void reset(List<Restaurant> restaurants) {
         voteSum = new ArrayList<VoteSum>();
         for(Restaurant r : restaurants){
             voteSum.add(new VoteSum(r.getId(),0));
@@ -49,4 +54,5 @@ public class VotesSumService {
         }
         throw  new RestaurantException("Inesperado: Não foi encontrado vote para o restaurante");
     }
+
 }

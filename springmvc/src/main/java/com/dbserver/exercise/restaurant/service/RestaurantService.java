@@ -69,4 +69,10 @@ public class RestaurantService {
     public Restaurant getChoosenRestaurant(Calendar week) {
         return weekRestaurantsService.findRestaurant(week, votesSumService.getChoosenRestaurantId());
     }
+
+    public void reset() {
+        votesSumService = null;
+        weekVotedUsersService.reset();
+        weekChoosenService.reset();
+    }
 }

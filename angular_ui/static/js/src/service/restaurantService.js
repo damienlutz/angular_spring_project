@@ -43,4 +43,17 @@ module.exports = ['$http', function($http) {
         return $http.post("http://localhost:8080/getChoosenRestaurant", data);
     }
 
+
+    this.reset = function() {
+        return reset().then(function(response) {
+            return response.data;
+        }, function(reason) {
+            console.log('Failed reset: ' + JSON.stringify(reason));
+        });
+    }
+
+    function reset(){
+        return $http.post("http://localhost:8080/reset");
+    }
+
 }]
