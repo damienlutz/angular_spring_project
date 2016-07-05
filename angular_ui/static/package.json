@@ -23,12 +23,13 @@
     "angular-route": "^1.5.7"
   },
   "devDependencies": {
-    "jshint": "latest",
     "browserify": "^13.0.1",
-    "watchify": "^3.7.0",
+    "browserify-css": "^0.9.1",
+    "catw": "latest",
+    "jshint": "latest",
     "live-reload": "latest",
     "node-sass": "latest",
-    "catw": "latest",
-    "parallelshell": "^1.2.0"
+    "parallelshell": "^1.2.0",
+    "watchify": "^3.7.0"
   }
 }

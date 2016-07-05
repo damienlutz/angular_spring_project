@@ -10,7 +10,6 @@ module.exports = ['restaurantService','testCaseService','$mdToast',
     }(this);
 
     restaurantService.getChoosenRestaurant(testCaseService.getWeek()).then(function(choosenResponse) {
-        console.log('Success: ' + JSON.stringify(choosenResponse));
 
         if(!choosenResponse.valid){
             $mdToast.show(

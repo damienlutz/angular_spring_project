@@ -17,7 +17,6 @@ module.exports = ['$http', function($http) {
     this.voteRestaurant = function(id, userId, week){
 
         var data = {'restaurantId':id, 'userId':userId, 'week':week };
-        console.log('Data voteRestaurant: ' + JSON.stringify(data));
 
         return voteRestaurant(data).then(function(response) {
             return response.data;
@@ -33,7 +32,6 @@ module.exports = ['$http', function($http) {
     this.getChoosenRestaurant = function(week) {
         var data = {'week':week };
         return getChoosenRestaurant(data).then(function(response) {
-            console.log('getChoosenRestaurant ok: ' + JSON.stringify(response.data));
             return response.data;
         }, function(reason) {
             console.log('Failed getChoosenRestaurant: ' + JSON.stringify(reason));

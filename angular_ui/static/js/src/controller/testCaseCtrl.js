@@ -8,7 +8,6 @@ module.exports = ['testCaseService','navigationService',function(testCaseService
     this.submit = function (e){
         testCaseService.setUserId(this.user);
         testCaseService.setWeek(this.week);
-        console.log('submited the test case');
     };
 
     this.nextPage = function(){

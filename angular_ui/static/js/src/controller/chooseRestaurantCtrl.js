@@ -10,7 +10,6 @@ module.exports = ['restaurantService','testCaseService','$mdToast',
     }(this);
 
     restaurantService.getRestaurants().then(function(value) {
-        console.log('Success: ' + JSON.stringify(value));
         updateRestaurants(value);
     });
 
@@ -19,15 +18,12 @@ module.exports = ['restaurantService','testCaseService','$mdToast',
             console.log('invalid form');
             return;
         }
-        console.log('submit');
 
 
         restaurantService.voteRestaurant(this.restaurant,
                                             testCaseService.getUserId(),
                                             testCaseService.getWeek()).
             then(function(vote) {
-                console.log('Success: ' + JSON.stringify(vote));
-
                 if(vote.valid){
                     $mdToast.show(
                           $mdToast.simple()
