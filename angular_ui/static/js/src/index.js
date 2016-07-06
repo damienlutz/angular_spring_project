@@ -19,3 +19,6 @@ app.controller('startSessionCtrl', require('./controller/startSessionCtrl'));
 app.service('restaurantService', require('./service/restaurantService'));
 app.service('testCaseService', require('./service/testCaseService'));
 app.service('navigationService', require('./service/navigationService'));
+
+
+app.component("toolbarComp", require('./component/toolbarComp'));
