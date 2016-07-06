@@ -10,7 +10,6 @@ var app = angular.module('restaurantApp', [ 'ngMaterial', 'ngRoute']);
 
 app.config(require('./routes'));
 
-app.controller('appCtrl', require('./controller/appCtrl'));
 app.controller('chooseRestaurantCtrl', require('./controller/chooseRestaurantCtrl'));
 app.controller('choosenRestaurantCtrl', require('./controller/choosenRestaurantCtrl'));
 app.controller('testCaseCtrl', require('./controller/testCaseCtrl'));
@@ -21,4 +20,4 @@ app.service('testCaseService', require('./service/testCaseService'));
 app.service('navigationService', require('./service/navigationService'));
 
 
-app.component("toolbarComp", require('./component/toolbarComp'));
+app.component("compToolbar", require('./component/compToolbar'));
