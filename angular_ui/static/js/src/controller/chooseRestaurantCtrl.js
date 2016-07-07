@@ -20,23 +20,25 @@ module.exports = ['restaurantService','testCaseService','$mdToast',
         }
 
 
-        restaurantService.voteRestaurant(this.restaurant,
+        var promise = restaurantService.voteRestaurant(this.restaurant,
                                             testCaseService.getUserId(),
-                                            testCaseService.getWeek()).
-            then(function(vote) {
-                if(vote.valid){
-                    $mdToast.show(
-                          $mdToast.simple()
-                            .textContent('Voto registrado!')
-                            .hideDelay(3000)
-                        );
-                }else{
-                    $mdToast.show(
-                          $mdToast.simple()
-                            .textContent(vote.reason)
-                            .hideDelay(3000)
-                        );
-                }
+                                            testCaseService.getWeek());
+        promise.then(function(greeting) {
+          if(vote.valid){
+              $mdToast.show(
+                    $mdToast.simple()
+                      .textContent('Voto registrado!')
+                      .hideDelay(3000)
+                  );
+          }else{
+              $mdToast.show(
+                    $mdToast.simple()
+                      .textContent(vote.reason)
+                      .hideDelay(3000)
+                  );
+          }
+        }, function(reason) {
+            console.log('Failed: ' + reason);
         });
     };
 }]

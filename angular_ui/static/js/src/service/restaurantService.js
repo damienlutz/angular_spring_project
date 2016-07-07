@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$http', function($http) {
+module.exports = ['$http','$q', function($http, $q) {
 
     this.getRestaurants = function() {
         return getRestaurants().then(function(response) {
@@ -16,13 +16,17 @@ module.exports = ['$http', function($http) {
 
     this.voteRestaurant = function(id, userId, week){
 
+        var deferred = $q.defer();
+
         var data = {'restaurantId':id, 'userId':userId, 'week':week };
 
-        return voteRestaurant(data).then(function(response) {
-            return response.data;
+        voteRestaurant(data).then(function(response) {
+            deferred.resolve(response.data);
         }, function(reason) {
             console.log('Failed voteRestaurant: ' + JSON.stringify(reason));
+            deferred.reject(reason.status);
         });
+        return deferred.promise;
     }
 
     function voteRestaurant(data){
